@@ -64,6 +64,9 @@ Sinta-se a vontade caso queira fazer a versão completa do sistema, é um excele
 </details>
 
 ## Início do projeto
+Todo o código desse artigo pode ser acompanhado no repositório final:
+https://github.com/jackson541/tutorial-django/tree/main/artigo_1
+
 ### Instalação
 Você já deve estar ansioso(a) para colocar a mão na massa, então esse é o momento!
 
@@ -176,6 +179,8 @@ Em nosso próximo artigo iremos abordar como realizar o CRUD com as tabelas do b
 Para ficar por dentro das atualizações, conecte-se comigo no Linkedin :smile:
 https://www.linkedin.com/in/jackson-alves541/
 
+Link do repositório final desse artigo:
+https://github.com/jackson541/tutorial-django/tree/main/artigo_1
 
 ## Fontes
 Essas foram algumas fontes utilizadas para a construção desse artigo:
