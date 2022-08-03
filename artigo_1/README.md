@@ -1,3 +1,6 @@
+Link para artigo oficial:
+https://www.tabnews.com.br/jackson541/tutorial-de-django-introducao
+
 ## O que ele é
 Seja bem-vindo(a)! :smile: 
 
