@@ -1,6 +1,8 @@
+Link para artigo oficial: https://www.tabnews.com.br/jackson541/models-e-consultas-em-django
+
 Seja bem-vindo(a)! :smile:
 
-Vamos continuar o projeto que iniciamos no [artigo anterior](https://www.tabnews.com.br/jackson541/tutorial-de-django-introducao) de administração de uma biblioteca. Se você não conferiu ele ainda, recomendo que volte lá para entender um pouco mais sobre o que estamos fazendo.
+Vamos entender como funcionam mais afundo os models e as consultas no Django para poder continuar o projeto que iniciamos no [artigo anterior](https://www.tabnews.com.br/jackson541/tutorial-de-django-introducao) de administração de uma biblioteca. Se você não conferiu ele ainda, recomendo que volte lá para entender um pouco mais sobre o que estamos fazendo.
 - [Artigo 1: Introdução](https://www.tabnews.com.br/jackson541/tutorial-de-django-introducao)
 
 ## Models
@@ -8,7 +10,7 @@ Antes de colocarmos a mão na massa, é importante que conhecermos como funciona
 
 Como expliquei antes, o `Model` é a parte da arquitetura que fica responsável por se conectar ao banco de dados, tanto na parte de gerar tabelas como a de fazer consultas ou inserção de dados.
 
-No Django, não temos a necessidade de criarmos as tabelas do banco diretamente com SQL porque ele abstrai isso para a gente, apenas o que precisamos fazer é escrever classes em Python que serão convertidas em tabelas dentro do banco. Para fazer isso, devemos escrever a classe desejada dentro do arquivo `models.py` com o seguinte formato:
+No Django, não temos a necessidade de criarmos as tabelas do banco diretamente com SQL porque ele abstrai isso para a gente, apenas o que precisamos fazer é escrever classes em Python que serão convertidas em tabelas dentro do banco. Para fazer isso, devemos escrever a classe desejada dentro do arquivo `models.py`, que fica na pasta do app, com o seguinte formato:
 
 ![exemplo-model-carro](https://ik.imagekit.io/6sszyq45h/image_5luNnuhGn.png?ik-sdk-version=javascript-1.4.3&updatedAt=1659701900045)
 
@@ -45,7 +47,7 @@ CREATE TABLE nomedoapp_carro (
 Existem diversos outros tipos de campos (campo de arquivos, URL, email, JSON, etc) e parâmetros que podemos passar para esses campos (nulo, valor padrão, campo único, etc) que podemos utilizar, você pode encontrar na documentação oficial do Django uma lista deles:
 - https://docs.djangoproject.com/en/4.0/ref/models/fields/
 
-Com o model definido, precisamos passar essas alterações para o banco e para fazer isso o projeto precisa identificar que existe um app com models criados, pois ele não faz isso automaticamente. Para realizar isso, edite a constante `INSTALLED_APPS` dentro do arquivo `settings.py` do projeto, devemos listar nele o app que criamos:
+Com o model definido, precisamos passar essas alterações para o banco e para fazer isso o projeto precisa identificar que existe um app com models criados, pois ele não faz essa ação automaticamente. Para realizar isso, edite a constante `INSTALLED_APPS` dentro do arquivo `settings.py` do projeto, devemos listar nele o app que criamos:
 
 ![apps-instalados-django](https://ik.imagekit.io/6sszyq45h/image_6dBFvcte5.png?ik-sdk-version=javascript-1.4.3&updatedAt=1659707536624)
 
@@ -66,14 +68,14 @@ Repare que ele criou um arquivo com o nome `0001_initial.py` dentro da pasta `mi
 
 ![codigo-migracao-inicial](https://ik.imagekit.io/6sszyq45h/image_2__Z8H_vF0mK.png?ik-sdk-version=javascript-1.4.3&updatedAt=1659708167970)
 
-Esse o formato de uma migração:
+Esse é o formato de uma migração:
 - o parâmetro `initial` informa que aquela é a primeira migração do app, o django irá utilizar isso na hora de aplicar elas no banco de dados
 - `dependencies` é uma lista de outras migrações que são dependências da atual, ou seja, a migração atual só pode ser executada depois que todas as suas dependências foram executadas. Como essa é a migração inicial do projeto, ela não tem dependências
 - já `operations` é a lista de operações que devem ser realizadas no banco, como esperado ela está criando o model "Carro" com os 3 campos que definimos e o campo "ID" padrão como chave primária
 
 Sempre que criar, alterar ou remover um model, você deve rodar o `makemigrations` para registrar as alterações realizadas. Quando tiver um conhecimento mais avançado, também poderá criar suas próprias migrações para realizar alterações personalizadas no banco, como rodar funções próprias, mas não recomendo ver isso agora para não se confundir.
 
-Com a migração criada, precisamos aplicar ela no banco de dados e fazeremos isso com o segundo comando `migrate`. Ele irá verificar quais migrações ainda não foram aplicadas e irá realizar elas no banco:
+Com a migração criada, precisamos aplicar ela no banco de dados e faremos isso com o segundo comando `migrate`. Ele irá verificar quais migrações ainda não foram aplicadas e irá realizar elas no banco:
 
 ```
 python manage.py migrate
@@ -98,11 +100,15 @@ python manage.py shell
 
 Ele irá abrir um interpretador como esse que podemos utilizar para testar funções ou outras coisas do python, além de poder interagir com o nosso banco de dados pelos models.
 
-![django shell](https://ik.imagekit.io/6sszyq45h/image_KHlvinlE9.png?ik-sdk-version=javascript-1.4.3&updatedAt=1659718790482)
+<p align="center">
+    <img src="https://ik.imagekit.io/6sszyq45h/image_KHlvinlE9.png?ik-sdk-version=javascript-1.4.3&updatedAt=1659718790482" alt="django shell">
+</p>
 
 Para criar objetos de um determinado model, podemos importar o arquivo de models dentro da shell e utilizar o método `create`:
 
-![django objects create](https://ik.imagekit.io/6sszyq45h/image_1__azcL715mK.png?ik-sdk-version=javascript-1.4.3&updatedAt=1659719176205)
+<p align="center">
+    <img src="https://ik.imagekit.io/6sszyq45h/image_1__azcL715mK.png?ik-sdk-version=javascript-1.4.3&updatedAt=1659719176205" alt="django objects create">
+</p>
 
 <details><summary>Código da imagem</summary>
 Recomendo que escreva o código em vez de copiar para fixar melhor! 😉
@@ -175,17 +181,17 @@ Veja o que acontece quando buscamos por um filtro que irá retornar mais de um o
 
 ![erro get django](https://ik.imagekit.io/6sszyq45h/image_7HJyFzepE.png?ik-sdk-version=javascript-1.4.3&updatedAt=1659721388907)
 
-Como é possível notar, recebemos um erro `get() returned more than one Carro -- it returned 2!`, o que ele próprio diz é que o método `get` retornou mais de um objeto da classe Carro (nesse caso 2). Sendo assim, só é recomendado utilizar o `get` quando temos certeza que só irá existir 1 único objeto com aquelas informações, isso geralmente irá acontecer quando buscamos por chaves primárias. Quando não há nenhum objeto com os parâmetros informados, ele também retornará um erro:
+Como é possível notar, recebemos um erro `get() returned more than one Carro -- it returned 2!`, o que ele próprio diz é que o método `get` retornou mais de um objeto da classe Carro (nesse caso 2). Sendo assim, só é recomendado utilizar o `get` quando temos certeza que só irá existir um único objeto com aquelas informações, isso geralmente irá acontecer quando buscamos por chaves primárias. Quando não há nenhum objeto com os parâmetros informados, ele também retornará um erro:
 
 ![error get django sem objetos](https://ik.imagekit.io/6sszyq45h/image_zifnVEblC.png?ik-sdk-version=javascript-1.4.3&updatedAt=1659721612041)
 
-Bem, nem sempre queremos buscar todos os objetos de uma tabela ou apenas um objeto, as vezes precisamos buscas todos os objetos que atendam a um determinado filtro e para nos ajudar existe o método `filter()`:
+Bem, nem sempre queremos buscar todos os objetos de uma tabela ou apenas um objeto, as vezes precisamos buscar todos os objetos que atendam a um determinado filtro e para nos ajudar existe o método `filter()`:
 
 <p align="center">
     <img src="https://ik.imagekit.io/6sszyq45h/image_TcuT4_BcC.png?ik-sdk-version=javascript-1.4.3&updatedAt=1659721956646" alt="django objects filter">
 </p>
 
-Ele retorna um QuerySet assim como o método `all`, mas nesse caso apenas com os objetos que atendem ao nosso filtro. No primeiro caso, ele retornou os carros com ID 1 e 3 que tem a cor igual a "cinza" e, no segundo caso, retornou os carros com ID 1 e 3 que tem velocidade_maxima igual a 120.
+Ele retorna um QuerySet assim como o método `all`, mas nesse caso apenas com os objetos que atendem ao nosso filtro. No primeiro caso, ele retornou os carros com ID 1 e 3 que tem a cor igual a "cinza" e, no segundo caso, retornou os carros com ID 1 e 2 que tem velocidade_maxima igual a 120.
 
 Uma coisa fantástica do ORM do Django é que podemos combinar consultas em diferentes momentos em um mesmo QuerySet:
 
@@ -231,7 +237,7 @@ Por fim, precisamos saber como apagar objetos do banco e para fazer isso usamos 
 
 Ao deletar ele retornará um JSON com a relação de quantos objetos foram removidos e quais objetos foram esses.
 
-Esses foram apenas alguns dos vários métodos e lookups que o Django nos forcene para trabalhar com os models, sugiro que dê uma olhada [nessa referência sobre QuerySet](https://docs.djangoproject.com/en/4.0/ref/models/querysets/) para ver outros métodos importantes como o `count()`, `first()`, `last()`, `exists()` e também os vários lookups disponíveis:
+Esses foram apenas alguns dos vários métodos e lookups que o Django nos fornece para trabalhar com os models, sugiro que dê uma olhada [nessa referência sobre QuerySet](https://docs.djangoproject.com/en/4.0/ref/models/querysets/) para ver outros métodos importantes como o `count()`, `first()`, `last()`, `exists()` e também os vários lookups disponíveis:
 - https://docs.djangoproject.com/en/4.0/ref/models/querysets/
 
 
@@ -246,7 +252,6 @@ https://www.linkedin.com/in/jackson-alves541/
 
 Link do repositório final desse artigo:
 https://github.com/jackson541/tutorial-django/tree/main/artigo_2
-
 
 
 ## Fontes
