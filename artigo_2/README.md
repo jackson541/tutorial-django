@@ -244,8 +244,8 @@ Esses foram apenas alguns dos vários métodos e lookups que o Django nos fornec
 ## Próximos passos
 Parabéns por chegar até aqui! Pegue o seu café e relaxe um pouco porque você já aprendeu muito.
 
-Em nosso próximo artigo iremos abordar como realizar o CRUD com as tabelas do banco de dados. Link para o artigo:
-- (ainda em construção)
+Em nosso próximo artigo iremos abordar como trabalhar com os templates de forma mais aprofundada. Link para o artigo:
+- https://www.tabnews.com.br/jackson541/templates-em-django
 
 Para ficar por dentro das atualizações, conecte-se comigo no Linkedin :smile:
 https://www.linkedin.com/in/jackson-alves541/

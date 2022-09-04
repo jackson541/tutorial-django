@@ -1,3 +1,5 @@
+Link para artigo oficial: https://www.tabnews.com.br/jackson541/templates-em-django
+
 Seja bem-vindo(a)! :smile:
 
 Vamos finalmente iniciar a parte principal do nosso projeto e desenvolver o CRUD do nosso sistema da biblioteca.
@@ -7,7 +9,7 @@ Se você caiu aqui de paraquedas e não entende o que é ou como funciona o Djan
 - [Artigo 1: Introdução](https://www.tabnews.com.br/jackson541/tutorial-de-django-introducao)
 - [Artigo 2: Models e consultas](https://www.tabnews.com.br/jackson541/models-e-consultas-em-django)
     
-## Utilizando os templates
+## Trabalhando com os templates
     
 Agora que já sabemos como criar e utilizar os models do Django, vamos iniciar o desenvolvimento do nosso sistema.
     
@@ -52,11 +54,11 @@ Após rodar o projeto e acessar a rota http://localhost:8000/cadastro/ , devemos
     <img src="https://ik.imagekit.io/6sszyq45h/image_ubgTaDtkg.png?ik-sdk-version=javascript-1.4.3&updatedAt=1662163189386" alt="URL tela cadastro leitores">
 </p>
     
-Nós poderiamos colocar todo o HTML da nossa tela dentro da função `HttpResponse`, mas isso iria precisar de um código HTML razoável dentro de uma string, o que precisamos concordar que não fica nem um pouco legal. 
+Nós poderiamos colocar todo o HTML da nossa tela dentro da função `HttpResponse`, mas isso iria necessitar de um código HTML razoável dentro de uma string, o que precisamos concordar que não fica nem um pouco legal. 
     
 Então precisamos criar um arquivo HTML de verdade para poder utilizar ele em nossa view e é justamente para isso que existem os **templates**, aqueles mesmo que citamos do padrão MVC e que fica responsável pela parte visual.
     
-Por padrão nós salvamos os nossos templates (arquivos HTML) dentro de uma pasta também chamada **templates** dentro no nosso app. Então crie uma pasta com esse nome e um arquivo para cadastro dos leitores dentro dela, dessa forma:
+Por padrão, nós salvamos os nossos templates (arquivos HTML) dentro de uma pasta também chamada **templates** dentro no nosso app. Então crie uma pasta com esse nome e um arquivo para cadastro dos leitores dentro dela, dessa forma:
 
 <p align="center">
     <img src="https://ik.imagekit.io/6sszyq45h/image_Cu_69lbKl.png?ik-sdk-version=javascript-1.4.3&updatedAt=1662164073982" alt="pasta de templates">
@@ -108,7 +110,7 @@ def cadastro_leitores(request):
     
 </details>
     
-Na linha 5 o template está sendo importado de dentro da pasta, a variável `context` da linha 8 é um dicionário que pode levar outras variáveis para serem utilizadas dentro do template (veremos sobre isso mais a frente) e, por fim, na linha 9 estamos renderizando o template e devolvendo ele com o HttpResponse.
+Na linha 5 o template está sendo importado de dentro da pasta, a variável `context` da linha 7 é um dicionário que pode levar outras variáveis para serem utilizadas dentro do template (veremos sobre isso mais a frente) e, por fim, na linha 9 estamos renderizando o template e devolvendo ele com o HttpResponse.
     
 Com o template importado e sendo retornado, veremos o resultado da página de cadastro depois de rodar o projeto:
     
@@ -207,7 +209,7 @@ E se quisermos mudar o conteúdo exibido no nome, basta mudar dentro da variáve
     <img src="https://ik.imagekit.io/6sszyq45h/image_akFfdKhWb.png?ik-sdk-version=javascript-1.4.3&updatedAt=1662228248872" alt="resultado da mudança no template">
 </p>
 
-Mas o template nos permite passar muito mais do que uma simples string para dentro, também aceita objetos, listas, dicionários e vários outras estruturas de dados.
+Mas o template nos permite passar muito mais do que uma simples string para dentro: também aceita objetos, listas, dicionários e vários outras estruturas de dados.
 
 Vamos criar uma classe fictícia para mostrar como exibir dados dos objetos:
 
@@ -324,7 +326,7 @@ def cadastro_leitores(request):
 
 ```
 
-Repare como a forma que em acessamos os dados da lista e do dicionários são diferentes do que fazemos em códigos python e bem semelhantes a forma como se acessa dados dos objetos. Nas listas sempre utiliza `nome_da_lista.indice` e para os dicionários sempre é `nome_do_dicionario.nome_da_chave`.
+Repare como a forma em que acessamos os dados da lista e do dicionário são diferentes do que fazemos em códigos python e bem semelhantes a forma como se acessa dados dos objetos. Nas listas sempre se utiliza `nome_da_lista.indice` e para os dicionários sempre é `nome_do_dicionario.nome_da_chave`.
 
 Por fim, esse será o resultado gerado em nossa página:
 
@@ -351,7 +353,7 @@ Sabemos que a melhor forma de exibir todos os dados de uma lista não é chamand
 
 ```
 
-Repare como escrevemos o FOR, ele itera sobre a lista `carros_nomes` e cada elemento da lista será guardado na variável `nome_carro` a cada iteração, assim como acontece em um FOR normalmente no python. A variável `nome_carro` vem na linha seguinte no formato `{{ }}` para exibir o seu conteúdo. Por fim, temos a tag `{% endfor %}` que delimita o fim da execução do FOR, então tudo que estiver entre o `{% for %}` e o `{% endfor %}` será executado a quantidade de elementos que tiver na lista.
+Repare como escrevemos o FOR: ele itera sobre a lista `carros_nomes` e cada elemento da lista será guardado na variável `nome_carro` a cada iteração, assim como acontece em um FOR normalmente no python. A variável `nome_carro` vem na linha seguinte no formato `{{ }}` para exibir o seu conteúdo. Por fim, temos a tag `{% endfor %}` que delimita o fim da execução do FOR, então tudo que estiver entre o `{% for %}` e o `{% endfor %}` será executado a quantidade de elementos que tiver na lista.
 
 Esse será o nosso resultado:
 
@@ -375,7 +377,7 @@ E se quiséssemos fazer com que apenas a linha com o valor "fusca" tenha a cor a
 </ul>
 ```
 
-Dentro das propriedades do `li` adicionamos a condicional desejada do fuscal azul, o trecho `{% if nome_carro == 'fusca' %}` verifica se o valor da lista atual é o que desejamos e, caso seja, a estilização da cor azul será aplicada. Assim como existem o `{% endfor %}`, também é preciso ter um `{% endif %}` para dizer ao template qual é o fim do IF e tudo entre o `{% if %}` e `{% endif %}` será executado se a condicional for verdadeira. Assim fica a nossa página:
+Dentro das propriedades do `li`, adicionamos a condicional desejada do fuscal azul. O trecho `{% if nome_carro == 'fusca' %}` verifica se o valor da lista atual é o que desejamos e, caso seja, a estilização da cor azul será aplicada. Assim como existem o `{% endfor %}`, também é preciso ter um `{% endif %}` para dizer ao template qual é o fim do IF e tudo entre o `{% if %}` e `{% endif %}` será executado se a condicional for verdadeira. Assim fica a nossa página:
 
 <p align="center">
     <img src="https://ik.imagekit.io/6sszyq45h/image_A88GPrmKm.png?ik-sdk-version=javascript-1.4.3&updatedAt=1662300451125" alt="resultado ao utilizar o IF">
@@ -420,7 +422,7 @@ Para ficar por dentro das atualizações, conecte-se comigo no Linkedin :smile:
 https://www.linkedin.com/in/jackson-alves541/
 
 Link do repositório final desse artigo:
-https://github.com/jackson541/tutorial-django/tree/main/artigo_2
+https://github.com/jackson541/tutorial-django/tree/main/artigo_3
 
 
 ## Fontes
