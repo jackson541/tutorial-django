@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administração da biblioteca</title>
+</head>
+<body>
+
+<h1>{{ nome_sistema }}</h1>
+    
+<p>Seja bem-vindo! Realize seu cadastro e desfrute da nossa biblioteca.</p>
+
+<h2>Dados do carro</h2>
+<table border="1px solid black">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Marca</th>
+            <th>Cor</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ carro.marca }}</td>
+            <td>{{ carro.cor }}</td>
+            <td>{{ carro.nome }}</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h2>Lista de carros</h2>
+<ul>
+    <li>{{ carros_nomes.0 }}</li>
+    <li>{{ carros_nomes.1 }}</li>
+    <li>{{ carros_nomes.2 }}</li>
+</ul>
+
+<h2>Ano de lançamento dos carros</h2>
+
+<ul>
+    <li>Fusca: {{ ano_lancamento_carros.fusca }}</li>
+    <li>HB20: {{ ano_lancamento_carros.hb20 }}</li>
+    <li>Honda Fit: {{ ano_lancamento_carros.honda_fit }}</li>
+</ul>
+
+
+<h2>Nova lista de carros</h2>
+<ul>
+    {% for nome_carro in carros_nomes %}
+        <li>{{ nome_carro }}</li>
+    {% endfor %}
+</ul>
+
+
+<h2>Nova lista de carros com IF e ELSE</h2>
+<ul>
+    {% for nome_carro in carros_nomes %}
+        <li 
+            {% if nome_carro == 'fusca' %} 
+                style="color: blue;" 
+            {% elif nome_carro == 'hb20' %} 
+                style="color: red;" 
+            {% else %}
+                style="color: yellowgreen;" 
+            {% endif %}
+        > {{ nome_carro }} </li>
+    {% endfor %}
+</ul>
+
+
+</body>
+</html>
